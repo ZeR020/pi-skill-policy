@@ -13,9 +13,6 @@ Pi Skill Policy is a Pi extension for loading skills on demand, pinning them as 
 ## Requirements
 
 - **Pi 1.5.0 or newer.** Development and verification use Pi 1.5.2.
-- **One policy owner.** Do not run Pi Skill Policy alongside another extension that filters the same skill prompt and input events, including the legacy `pi-skill-manager`.
-
-Keep the legacy manager's configuration file if you want its saved choices imported. Disable or remove its extension registration instead of deleting the file.
 
 ## Install
 
@@ -65,12 +62,12 @@ Esc closes a clean Load view or discards unsaved management edits.
 ## Documentation
 
 - [Usage](docs/usage.md): Load and management controls, policy scopes, invocation, and headless output.
-- [Configuration](docs/configuration.md): policy files, master bypass, migration, theme, and troubleshooting.
+- [Configuration](docs/configuration.md): policy files, master bypass, theme, and troubleshooting.
 - [Contributing](CONTRIBUTING.md): local setup, source map, tests, and review expectations.
 
 ## License
 
-Pi Skill Policy is released under the [MIT License](LICENSE). Copyright for this independent project belongs to ZeR020; Nico Bailon's original copyright is retained in the license file.
+Pi Skill Policy is released under the [MIT License](LICENSE).
 
 ## Acknowledgments
 

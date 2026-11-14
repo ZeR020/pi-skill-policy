@@ -93,7 +93,7 @@ The Global **Master switch** controls whether saved restrictions are enforced:
 - **`●`** — restrictions are enforced.
 - **`○` with "OFF, restrictions bypassed"** — Global Off and Project Off choices are temporarily ineffective.
 
-The saved choices are kept intact. Turning the switch back on restores them. Saving a Global draft with the Master switch Off reloads Pi once so every runtime policy owner picks up the change; an ordinary visibility save applies without a reload.
+The saved choices are kept intact. Turning the switch back on restores them. Saving a Global draft with the Master switch Off reloads Pi once so the switch takes effect; an ordinary visibility save applies without a reload.
 
 The bypass affects only this extension's policy. It does not change Pi's native skill discovery or `disable-model-invocation` behavior.
 
@@ -156,4 +156,4 @@ Skill visibility policy is not an operating-system security boundary:
 - External edits to policy files are adopted on reload; there is no file watcher.
 - After changing extension registration, reload Pi before judging the result.
 
-For policy files, migration, theme, and troubleshooting, see [Configuration](configuration.md). Installation and commands are summarized in the [README](../README.md).
+For policy files, theme, and troubleshooting, see [Configuration](configuration.md). Installation and commands are summarized in the [README](../README.md).

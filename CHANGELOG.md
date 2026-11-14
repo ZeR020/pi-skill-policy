@@ -18,7 +18,6 @@ First version of the independent `ZeR020/pi-skill-policy` project.
 - Pin selected skills as recurring instructions while native `/skill:` loading stays one-shot.
 - Manage persistent Global visibility and trusted Project On/Off/Inherit overrides in one overlay.
 - Bypass and restore restrictions with the Global Master switch without losing saved choices.
-- Import a legacy `pi-skill-manager` Global policy once, including relative-key resolution and master-off carryover.
 - Choose whether the catalog shows skill file paths.
 - Group skills by package or source, including unscoped npm packages and a shared `auto-learned` Hermes procedural-memory group.
 - Print an effective-policy summary to stderr in headless modes and notify it over RPC.
@@ -29,7 +28,7 @@ First version of the independent `ZeR020/pi-skill-policy` project.
 - Preserve Pi's native structured prompt composition and repair only recognized skills blocks in already-forced prompts.
 - Identify skills by their exact discovered `sourceInfo.path` and follow Pi's first-discovered winner for duplicate names.
 - Use `●` for enabled or active and `○` for disabled or bypassed across skill, Master, and Config rows; keep Project's `[~]` Inherit marker.
-- Keep `/skill`, `/skillmgr`, native `/skill:<name>` and multi-skill forms, both `pi-skill-palette.json` paths, the migration marker, and the legacy theme directory.
+- Keep `/skill`, `/skillmgr`, native `/skill:<name>` and multi-skill forms, both `pi-skill-palette.json` paths, and the existing theme directory.
 - Publish and maintain the project directly as `ZeR020/pi-skill-policy`.
 
 ### Security

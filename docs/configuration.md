@@ -6,7 +6,7 @@ The overlay saves policy for you. This page explains what is stored, where it li
 
 | Scope | Path | Contents |
 | --- | --- | --- |
-| Global | `<agent-dir>/config/pi-skill-palette.json` | Off skills, master bypass, path display, migration marker |
+| Global | `<agent-dir>/config/pi-skill-palette.json` | Off skills, master bypass, path display |
 | Project | `<trusted-cwd>/.pi/config/pi-skill-palette.json` | On/Off overrides for one working directory |
 
 `<agent-dir>` is Pi's agent directory (normally `~/.pi/agent`). The `pi-skill-palette.json` filename is kept deliberately so existing policy remains compatible; it does not mean another extension is active.
@@ -21,7 +21,6 @@ Opening the overlay does not create either file. Project policy is never read or
 - A failed save reports the full path and reason, and keeps the staged draft on screen so you can fix permissions or free space and retry.
 - An existing file that is not valid JSON, or has an invalid policy shape, is reported and is not silently replaced. Delete or repair it, then reload.
 - An invalid file fails open for that scope: it is ignored with a warning, and the remaining scopes still apply. Startup and headless summaries repeat the warning.
-- A legacy import creates the Global file only if it does not already exist, so an existing valid policy is never overwritten.
 
 Writes and reads cover only local files needed for this work. There is no network access, telemetry, provider registration, model inference, or background service.
 
@@ -32,23 +31,6 @@ The Global Master switch is stored as an optional boolean `off` in the Global fi
 Bypass is a runtime convenience, not a reset. The Off list and Project overrides stay untouched, so turning enforcement back on restores exactly the previous policy. Saving a Global draft with the Master switch Off reloads Pi once; `/skillmgr disable` and `/skillmgr enable` also reload once after saving.
 
 Bypass exists so enforcement can be suspended without rewriting the choices you would need to restore later.
-
-## Legacy import
-
-If no Global policy file exists, Pi Skill Policy imports from:
-
-```text
-<agent-dir>/config/pi-skill-manager.json
-```
-
-The import runs once and records a migration marker in the Global file. It reads the legacy file and never rewrites it.
-
-- Absolute disabled paths are imported directly.
-- A relative legacy key is resolved only when it matches exactly one currently discovered `pack/name` or skill name. Ambiguous or unresolved keys are reported and skipped rather than guessed.
-- A legacy master-off setting is carried over. Use `/skillmgr enable` to restore enforcement while keeping the imported choices.
-- Reserved legacy `projects` data is reported and not imported.
-
-The import may defer during startup when relative keys cannot be resolved yet, and completes once skill discovery is available. An invalid existing Global file is never replaced by an import.
 
 ## Theme
 
@@ -76,10 +58,6 @@ The file at the reported path is ignored for that scope, so policy fails open in
 
 Project policy applies only while Pi trusts the current working directory. An untrusted Project tab is locked; it reads and writes nothing. Trust the project or use Global policy instead.
 
-### Two extensions appear to filter skills
-
-Run only one skill-policy owner. Disable or remove the other registration, keep its configuration file if you want it imported, and reload Pi before judging the result. Pi Skill Policy reloads policy on `/reload`; it has no file watcher.
-
 ### Autocomplete still suggests a skill that is Off
 
 Off skills are removed from unambiguous suggestions. A suggestion is kept when another registered command shares the same `skill:<name>` value, because autocomplete items carry no source identity; native input for a disabled winner is still blocked. If two sources provide the same skill name, Pi's first discovered winner decides availability, and turning it Off does not promote the other one.
@@ -93,11 +71,3 @@ pi-skill-policy: skills block not found in the existing forced system prompt —
 Another extension has already replaced the complete system prompt in a form this extension does not recognize. It warns once per reload instead of deleting text speculatively. Run `pi update --extensions` to pick up a newer release of this extension, reload, and retry. If the warning persists, report the Pi version and the other prompt-forcing extension in an issue.
 
 A later extension can always replace the entire prompt after Pi Skill Policy runs.
-
-### A legacy key was not imported
-
-The startup warning names the legacy key and whether it was ambiguous or matched no installed skill.
-
-The import completes at most once. It can be deferred while skill discovery is still pending, and it retries until it can finish. During that window, making the key resolvable — install the missing skill or remove the duplicate source — and reloading lets the deferred import complete.
-
-Once the import has completed, skipped keys are not retried. Set the intended Global Off choice for those skills in `/skill` and save it. The legacy file and the choices already imported are left untouched.

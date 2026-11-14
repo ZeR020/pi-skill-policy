@@ -30,10 +30,9 @@ The package has no runtime dependencies. `devDependencies` are the Pi host API a
 | `src/input-gate.ts` | Native invocation parsing, queue limit, and invocation gating. |
 | `src/prompt-gate.ts` | Structured prompt filtering and recognized forced-prompt repair. |
 | `src/runtime-policy.ts` | Prompt-time policy, queue/pin injection, and one-shot warnings. |
-| `src/legacy-migration.ts` | One-time `pi-skill-manager` Global policy import. |
 | `src/skill-content.ts` | Skill body loading and prompt composition. |
 | `scripts/verify-overlay.mts` | Real keybinding, render, and storage verification in a temporary home. |
-| `tests/` | Unit, integration, native byte-parity, viewport, migration, and palette-behavior coverage. |
+| `tests/` | Unit, integration, native byte-parity, viewport, and palette-behavior coverage. |
 | `tests/fixtures/palette-foundation.ts` | Checked-in original palette baseline for offline compatibility tests. |
 | `plugin.json` | Agent Plugins metadata; the runtime remains Pi-specific. |
 | `theme.example.json` | Example color overrides. |
@@ -74,9 +73,8 @@ These constraints protect users and existing installations. A change that breaks
 - **Local and quiet at runtime.** No network calls, telemetry, provider registration, model inference, or background service.
 - **No runtime dependencies.** A small feature should not add a package.
 - **Respect user data.** Never edit `SKILL.md`, `.skill-lock.json`, native Pi settings, or another extension's live state. Policy writes go only to `<agent-dir>/config/pi-skill-palette.json` and `<trusted-cwd>/.pi/config/pi-skill-palette.json`.
-- **Preserve compatibility.** Keep `/skill`, `/skillmgr`, native `/skill:<name>` and multi-skill forms, both `pi-skill-palette.json` paths, the migration marker, and the legacy theme directory working.
+- **Preserve compatibility.** Keep `/skill`, `/skillmgr`, native `/skill:<name>` and multi-skill forms, both `pi-skill-palette.json` paths, and the existing theme directory working.
 - **Keep identity exact.** Skill identity is the verbatim `sourceInfo.path`; do not lowercase it or collapse it through realpath.
-- **One policy owner.** Do not add a second extension that filters the same skill prompt and input events.
 - **Trust is load-bearing.** Project policy stays unread and unwritable while the project is untrusted.
 
 ## Reporting a bug
