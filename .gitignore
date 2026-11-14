@@ -1,0 +1,8 @@
+# Local theme customization
+theme.json
+
+# Local development state
+progress.md
+node_modules/
+.pi/
+.pi-subagents/

@@ -1,0 +1,11 @@
+{
+	"$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+	"name": "pi-skill-policy",
+	"version": "2.2.0",
+	"description": "Load skills and manage persistent Global and Project skill visibility policy in Pi",
+	"author": {
+		"name": "ZeR020"
+	},
+	"license": "MIT",
+	"keywords": ["pi", "skills", "agent-plugin"]
+}
