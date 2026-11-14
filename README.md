@@ -16,7 +16,13 @@ Pi Skill Policy is a Pi extension for loading skills on demand, pinning them as 
 
 ## Install
 
-Run this in a terminal:
+Run this in a terminal to install the stable npm package:
+
+```bash
+pi install npm:pi-skill-policy
+```
+
+Or install the latest development source:
 
 ```bash
 pi install git:github.com/ZeR020/pi-skill-policy@main
@@ -29,13 +35,13 @@ Then, inside Pi:
 /skill
 ```
 
-To update an existing Git installation, run this in a terminal and then reload Pi:
+To update an installed package, run this in a terminal and then reload Pi:
 
 ```bash
 pi update --extensions
 ```
 
-Pi Skill Policy is distributed from this Git repository and is not published to npm.
+Both commands register the extension with Pi. Using the npm CLI directly only downloads files; it does not register the extension.
 
 ## Quick start
 

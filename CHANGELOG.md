@@ -2,15 +2,9 @@
 
 All notable user-facing changes to Pi Skill Policy are recorded here. Entries follow the spirit of [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and version numbers follow semantic versioning.
 
-## Unreleased
+## [0.1.0] - 2026-11-14
 
-### Changed
-
-- Restructure the documentation into a concise README with dedicated usage, configuration, and contribution guides.
-
-## [2.2.0] - 2026-11-14
-
-First version of the independent `ZeR020/pi-skill-policy` project.
+First public release of Pi Skill Policy.
 
 ### Added
 
@@ -29,7 +23,7 @@ First version of the independent `ZeR020/pi-skill-policy` project.
 - Identify skills by their exact discovered `sourceInfo.path` and follow Pi's first-discovered winner for duplicate names.
 - Use `●` for enabled or active and `○` for disabled or bypassed across skill, Master, and Config rows; keep Project's `[~]` Inherit marker.
 - Keep `/skill`, `/skillmgr`, native `/skill:<name>` and multi-skill forms, both `pi-skill-palette.json` paths, and the existing theme directory.
-- Publish and maintain the project directly as `ZeR020/pi-skill-policy`.
+- Distribute the package through npm with CI validation and provenance-backed releases.
 
 ### Security
 

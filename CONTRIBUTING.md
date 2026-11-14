@@ -32,6 +32,7 @@ The package has no runtime dependencies. `devDependencies` are the Pi host API a
 | `src/runtime-policy.ts` | Prompt-time policy, queue/pin injection, and one-shot warnings. |
 | `src/skill-content.ts` | Skill body loading and prompt composition. |
 | `scripts/verify-overlay.mts` | Real keybinding, render, and storage verification in a temporary home. |
+| `scripts/verify-package.mjs` | npm metadata, dry-run packing, and artifact-boundary verification. |
 | `tests/` | Unit, integration, native byte-parity, viewport, and palette-behavior coverage. |
 | `tests/fixtures/palette-foundation.ts` | Checked-in original palette baseline for offline compatibility tests. |
 | `plugin.json` | Agent Plugins metadata; the runtime remains Pi-specific. |
@@ -39,12 +40,14 @@ The package has no runtime dependencies. `devDependencies` are the Pi host API a
 
 ## Checks
 
-Run the three core checks before submitting:
+Run these checks before submitting:
 
 ```bash
 npm test
 npm run typecheck
 node --import tsx scripts/verify-overlay.mts
+npm run verify:package
+npm audit --audit-level=high
 ```
 
 For viewport work, run the narrow-terminal test directly:
@@ -57,6 +60,11 @@ Focused runs use the same command with another test file, for example `node --im
 
 The tests create temporary homes, policy files, and model-free host fixtures. They do not read your personal configuration, call a model, or use the network.
 
+## CI and releases
+
+Pull requests and pushes to `main` run the full tests, typecheck, real overlay verification, viewport checks, npm audit, and package-content verification on Node 22 and 24.
+
+Pushing a tag `v<version>` starts the release workflow only when the tag matches the package version and targets the current `main` commit. Release checks run first; npm publication uses provenance, then the matching GitHub Release is created. Publishing credentials are never supplied to pull-request checks.
 ## Making a change
 
 - Start from a focused branch of `main`.
