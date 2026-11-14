@@ -1,5 +1,6 @@
 # Pi Skill Policy
 
+[![npm version](https://img.shields.io/npm/v/pi-skill-policy)](https://www.npmjs.com/package/pi-skill-policy) [![npm downloads](https://img.shields.io/npm/dm/pi-skill-policy)](https://www.npmjs.com/package/pi-skill-policy) [![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE) [![Pi package](https://img.shields.io/badge/Pi-package-blue)](https://pi.dev/packages)
 Pi Skill Policy is a Pi extension for loading skills on demand, pinning them as standing instructions, and deciding which skills each session may use. Global choices apply to every session; Project choices override them in one trusted repository. Everything is managed locally through `/skill`, with no account, network call, or external service involved.
 
 ## Features
