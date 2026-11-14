@@ -1,0 +1,64 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+concurrency:
+  group: npm-release-${{ github.repository }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: test and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write # Create the GitHub Release after npm succeeds.
+      id-token: write # npm publish --provenance
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: "24.19.0"
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - name: Verify the tag matches the package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(node --print 'require("./package.json").version')"
+          if [[ "$tag" != "$pkg" ]]; then
+            echo "tag v$tag != package.json version $pkg"
+            exit 1
+          fi
+      - name: Verify the tag targets current main
+        run: |
+          git fetch --no-tags --depth=1 origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)"
+      - name: Check the viewport test tool
+        run: command -v script >/dev/null
+      - name: Install locked dependencies without scripts
+        run: npm ci --ignore-scripts
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Verify overlay behavior
+        run: node --import tsx scripts/verify-overlay.mts
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+      - name: Verify package contents
+        run: node scripts/verify-package.mjs "${GITHUB_REF_NAME#v}"
+      - name: Publish to npm
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Create the GitHub Release
+        run: gh release create "$GITHUB_REF_NAME" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

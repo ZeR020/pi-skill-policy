@@ -1,8 +1,15 @@
 {
 	"name": "pi-skill-policy",
-	"version": "2.2.0",
-	"description": "Pi skill loading palette with persistent Global and Project visibility policy",
+	"version": "0.1.0",
+	"description": "Control Pi skill visibility with persistent global and project settings.",
 	"main": "index.ts",
+	"files": [
+		"index.ts",
+		"src/**/*.ts",
+		"plugin.json",
+		"theme.example.json",
+		"CHANGELOG.md"
+	],
 	"type": "module",
 	"keywords": [
 		"pi-package"
@@ -15,7 +22,8 @@
 	},
 	"scripts": {
 		"test": "tsx --test tests/*.test.ts",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"verify:package": "node scripts/verify-package.mjs"
 	},
 	"devDependencies": {
 		"@earendil-works/pi-coding-agent": "1.5.2",
